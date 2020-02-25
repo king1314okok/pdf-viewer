@@ -1,8 +1,9 @@
 <template>
   <div>
+    <h4>当前第：{{pageNum}}页</h4>
     <input type="button" value="previous" @click="previousPage"/>
     <input type="button" value="next" @click="nextPage"/>
-    <div>
+    <div style="margin-top: 20px">
       <canvas id="pdfViewer" class="pdf-canvas"/>
     </div>
   </div>
@@ -57,7 +58,7 @@ export default {
       this.renderPage()
     },
     previousPage () {
-      if (this.pageNum === 0) {
+      if (this.pageNum === 1) {
         return
       }
       this.pageNum--
