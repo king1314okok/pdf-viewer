@@ -1,6 +1,5 @@
 <template>
   <div>
-    <input type="file" ref="fileInput" @change="uploadFile" />
     <input type="button" value="previous" @click="previousPage"/>
     <input type="button" value="next" @click="nextPage"/>
     <div>
@@ -24,21 +23,11 @@ export default {
     }
   },
   mounted () {
-    // this.initPdf(this.url)
+    this.initPdf(this.url)
   },
   methods: {
-    uploadFile () {
-      let inputDom = this.$refs.fileInput
-      let file = inputDom.files[0]
-      let reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        const pdfBase64 = atob(reader.result.substring(reader.result.indexOf(',') + 1))
-        this.initPdf(pdfBase64)
-      }
-    },
-    initPdf(pdfBase64) {
-      this.loadingTask = pdfjs.getDocument({data: pdfBase64})
+    initPdf(url) {
+      this.loadingTask = pdfjs.getDocument(url)
       this.renderPage()
     },
     renderPage () {

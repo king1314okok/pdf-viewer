@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header>
-        <el-menu :default-active="1" class="el-menu-demo" mode="horizontal">
+        <el-menu class="el-menu-demo" mode="horizontal">
           <el-menu-item index="1">处理中心</el-menu-item>
           <el-submenu index="2">
             <template slot="title">我的工作台</template>
@@ -16,7 +16,6 @@
         <el-aside>
           <el-menu
             style="height: 800px;width:200px;"
-            :default-active="1"
             class="el-menu-vertical-demo"
             >
             <el-menu-item index="1">
