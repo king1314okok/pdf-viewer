@@ -2,30 +2,23 @@
   <div>
     <el-container>
       <el-header>
-        <el-menu class="el-menu-demo" mode="horizontal">
-          <el-menu-item index="1">处理中心</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">我的工作台</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
-          </el-submenu>
+        <el-menu default-active="pdfPage" class="el-menu-demo" mode="horizontal" router>
+          <el-menu-item index="pdfPage">文档阅读器</el-menu-item>
         </el-menu>
       </el-header>
-      <el-container>
+      <el-container style="height: 550px;">
         <el-aside>
-          <el-menu
-            style="height: 800px;width:200px;"
-            class="el-menu-vertical-demo"
-            >
-            <el-menu-item index="1">
-              <i class="el-icon-menu"></i>
-              <span slot="title">文档</span>
-            </el-menu-item>
-          </el-menu>
+          <el-select v-model="selectFile" placeholder="请选择" clearable @change="showPdf" style="margin-top:30px;">
+            <el-option
+              v-for="item in files"
+              :key="item"
+              :label="item"
+              :value="item">
+            </el-option>
+          </el-select>
         </el-aside>
         <el-main>
-          <pdf-viewer />
+          <pdf-page ref="pdfPage"/>
         </el-main>
       </el-container>
     </el-container>
@@ -33,15 +26,28 @@
 </template>
 
 <script>
-import PdfViewer from '@/components/PdfViewer'
+import PdfPage from '@/pages/PdfPage'
 
 export default {
   name: 'Home',
   data() {
-    return {}
+    return {
+      files: this.$files,
+      selectFile: ''
+    }
   },
   components: {
-    PdfViewer
+    PdfPage
+  },
+  created () {
+  },
+  methods: {
+    showPdf (val) {
+      if (val) {
+        this.$refs.pdfPage.setUrl(val + '.pdf')
+      }
+    }
   }
+
 };
 </script>

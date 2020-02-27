@@ -20,13 +20,20 @@ export default {
       pageSize: 0,
       scale: 1,
       loadingTask: {},
-      url: './a.pdf'
+      url: ''
     }
   },
-  mounted () {
-    this.initPdf(this.url)
+  watch: {
+    url (val) {
+      if (val) {
+        this.initPdf(val)
+      }
+    }
   },
   methods: {
+    setUrl (url) {
+      this.url = url
+    },
     initPdf(url) {
       this.loadingTask = pdfjs.getDocument(url)
       this.renderPage()
@@ -35,18 +42,16 @@ export default {
       this.loadingTask.promise.then((pdf) => {
         this.pageSize = pdf.numPages
         pdf.getPage(this.pageNum).then((page) => {
-          var viewport = page.getViewport({ scale: this.scale });
-          var canvas = document.getElementById(this.id);
-          console.log('canvas:', canvas)
-          var context = canvas.getContext('2d');
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-
+          var viewport = page.getViewport({ scale: this.scale })
+          var canvas = document.getElementById(this.id)
+          var context = canvas.getContext('2d')
+          canvas.height = viewport.height
+          canvas.width = viewport.width
           var renderContext = {
             canvasContext: context,
             viewport: viewport
-          };
-          page.render(renderContext);
+          }
+          page.render(renderContext)
         })
       })
     },
