@@ -45,6 +45,8 @@ export default {
     showPdf (val) {
       if (val) {
         this.$refs.pdfPage.setUrl(val + '.pdf')
+      } else {
+        this.$refs.pdfPage.setUrl(val)
       }
     }
   }

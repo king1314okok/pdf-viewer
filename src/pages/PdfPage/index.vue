@@ -3,8 +3,8 @@
     <h4>当前第：{{pageNum}}页</h4>
     <input type="button" value="previous" @click="previousPage"/>
     <input type="button" value="next" @click="nextPage"/>
-    <div style="margin-top: 20px">
-      <canvas id="pdfViewer" class="pdf-canvas"/>
+    <div style="margin-top: 20px" class="pdf-canvas">
+      <canvas id="pdfViewer" v-if="isShow"/>
     </div>
   </div>
 </template>
@@ -20,17 +20,24 @@ export default {
       pageSize: 0,
       scale: 1,
       loadingTask: {},
-      url: ''
+      url: '',
+      isShow: false
     }
   },
   watch: {
     url (val) {
       if (val) {
+        this.isShow = true
         this.initPdf(val)
+      } else {
+        this.isShow = false
       }
     }
   },
   methods: {
+    refresh () {
+      this.$forceUpdate()
+    },
     setUrl (url) {
       this.url = url
     },
