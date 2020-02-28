@@ -26,6 +26,7 @@ export default {
   },
   watch: {
     url (val) {
+      this.pageNum = 1
       if (val) {
         this.isShow = true
         this.initPdf(val)
@@ -35,9 +36,6 @@ export default {
     }
   },
   methods: {
-    refresh () {
-      this.$forceUpdate()
-    },
     setUrl (url) {
       this.url = url
     },
