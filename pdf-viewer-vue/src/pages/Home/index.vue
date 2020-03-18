@@ -43,10 +43,11 @@ export default {
   },
   methods: {
     showPdf (val) {
+      const prefix = 'pdf/' + val
       if (val) {
-        this.$refs.pdfPage.setUrl(val + '.pdf')
+        this.$refs.pdfPage.setUrl(prefix + '.pdf')
       } else {
-        this.$refs.pdfPage.setUrl(val)
+        this.$refs.pdfPage.setUrl(prefix)
       }
     }
   }
