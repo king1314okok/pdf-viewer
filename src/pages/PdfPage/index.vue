@@ -1,9 +1,15 @@
 <template>
   <div>
-    <h4>当前第：{{pageNum}}页</h4>
-    <input type="button" value="previous" @click="previousPage"/>
-    <input type="button" value="next" @click="nextPage"/>
-    <pre>转到第 <input type=text id="pageJump"  style="width:20px"  @keyup.enter="jump"  oninput="value=value.replace(/[^\d]/g,'')"   /> 页</pre>
+    <h4>当前第：{{pageNum}}页&nbsp;&nbsp;总计:{{pageSize}}页</h4>
+    <el-button size="mini" @click="previousPage">上一页</el-button>
+    <el-button size="mini" @click="nextPage">下一页</el-button>
+    <div style="display:flex;margin-top:10px;">
+      转到第
+      <div>
+        <el-input v-model="toPageNum" style="width:50px;" size="mini"></el-input>
+      </div>
+      页
+    </div>
     <div style="margin-top: 20px" >
       <canvas id="pdfViewer" v-if="isShow" class="pdf-canvas"/>
     </div>
@@ -22,7 +28,8 @@ export default {
       scale: 2,
       loadingTask: {},
       url: '',
-      isShow: false
+      isShow: false,
+      toPageNum: ''
     }
   },
   watch: {
@@ -34,6 +41,15 @@ export default {
       } else {
         this.isShow = false
       }
+    },
+    toPageNum (val) {
+      const toPageNum = Number(val)
+      if (toPageNum < 0 || toPageNum > this.pageSize) {
+        this.$message.error('跳转页超出范围')
+        return
+      }
+      this.pageNum = Number(val)
+      this.renderPage()
     }
   },
   methods: {
@@ -68,6 +84,7 @@ export default {
       if (this.pageSize === this.pageNum) {
         return
       }
+      this.toPageNum = this.pageNum + 1
       this.pageNum++
       this.renderPage()
     },
@@ -75,30 +92,10 @@ export default {
       if (this.pageNum === 1) {
         return
       }
+      this.toPageNum = this.pageNum - 1
       this.pageNum--
       this.renderPage()
-    },
-    jump () {
-
-      var i = 12
-      // console.log(i)
-      // i = this.jumpPage
-      console.log(i)
-      i = event.currentTarget.value
-      console.log(i)
-      var k = parseInt(i)
-      
-
-      if (k <= this.pageSize && k>= 1) {
-    
-    
-        this.pageNum = k
-        this.renderPage()
-      }
-    
     }
- 
- 
   }
 }
 

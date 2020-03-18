@@ -6,7 +6,7 @@
           <el-menu-item index="pdfPage">思特威文档浏览系统</el-menu-item>
         </el-menu>
       </el-header>
-      <el-container style="height: 550px;">
+      <el-container>
         <el-aside>
           <el-select v-model="selectFile" placeholder="请选择" clearable @change="showPdf" style="margin-top:30px;">
             <el-option
