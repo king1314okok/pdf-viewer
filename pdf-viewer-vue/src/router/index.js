@@ -9,18 +9,23 @@ const router = new Router({
     {
       path: '/',
       name: 'Home',
-      redirect: '/pdfPage',
+      redirect: '/modulePdf',
       meta: {
         title: '思特威文档浏览系统'
       }
     },
     {
-      path: '/pdfPage',
-      name: 'PdfPage',
-      component: resolve => require(['@/pages/PdfPage'], resolve),
+      path: '/modulePdf',
+      name: 'ModulePdf',
+      component: resolve => require(['@/pages/ModulePdf'], resolve),
       meta: {
         title: '思特威文档浏览系统'
       }
+    },
+    {
+      path: '/module2',
+      name: 'Module2',
+      component: resolve => require(['@/pages/Module2'], resolve)
     }
   ]
 })

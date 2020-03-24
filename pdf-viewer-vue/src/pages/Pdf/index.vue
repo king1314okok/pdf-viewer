@@ -20,6 +20,7 @@
 import pdfjs from 'pdfjs-dist'
 
 export default {
+  name: 'Pdf',
   data () {
     return {
       id: 'pdfViewer',

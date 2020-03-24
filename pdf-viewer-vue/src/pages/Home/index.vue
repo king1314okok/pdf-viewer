@@ -3,54 +3,31 @@
     <el-container>
       <el-header>
         <el-menu default-active="pdfPage" class="el-menu-demo" mode="horizontal" router>
-          <el-menu-item index="pdfPage">思特威文档浏览系统</el-menu-item>
+          <el-menu-item index="modulePdf">思特威文档浏览系统</el-menu-item>
+          <el-menu-item index="module2">模块2</el-menu-item>
         </el-menu>
       </el-header>
       <el-container>
-        <el-aside>
-          <el-select v-model="selectFile" placeholder="请选择" clearable @change="showPdf" style="margin-top:30px;">
-            <el-option
-              v-for="item in files"
-              :key="item"
-              :label="item"
-              :value="item">
-            </el-option>
-          </el-select>
-        </el-aside>
-        <el-main>
-          <pdf-page ref="pdfPage"/>
-        </el-main>
+        <router-view>
+          <module-pdf />
+        </router-view>
       </el-container>
     </el-container>
   </div>
 </template>
 
 <script>
-import PdfPage from '@/pages/PdfPage'
+import ModulePdf from '@/pages/ModulePdf'
 
 export default {
   name: 'Home',
-  data() {
+  data () {
     return {
-      files: this.$files,
-      selectFile: ''
+
     }
   },
   components: {
-    PdfPage
-  },
-  created () {
-  },
-  methods: {
-    showPdf (val) {
-      const prefix = 'pdf/' + val
-      if (val) {
-        this.$refs.pdfPage.setUrl(prefix + '.pdf')
-      } else {
-        this.$refs.pdfPage.setUrl(prefix)
-      }
-    }
+    ModulePdf
   }
-
-};
+}
 </script>
