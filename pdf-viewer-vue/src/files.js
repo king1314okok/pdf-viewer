@@ -5,4 +5,8 @@ const files = [
   ,"员工手册"
 ]
 
-export default files
+const paper = [
+  "a"
+]
+
+export { files, paper }
